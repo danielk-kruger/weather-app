@@ -90,7 +90,7 @@ async function displayData() {
         <span class="temp-field">${temp}º</span>
       </div>
       <div class='weather-state'>
-          <img src='https://openweathermap.org/img/w/${icon}.png' class='weather-icon' />
+          <img src='openweathermap.org/img/w/${icon}.png' class='weather-icon' />
           <span class='weather-state-text'>${description}</span>
         </div>
       <div class='temp-minmax'>
