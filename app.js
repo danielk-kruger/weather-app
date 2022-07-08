@@ -22,7 +22,7 @@ const loaderAnimation = `
 
 async function getLocationCoords(searchParam) {
   const coords = await fetch(
-    `https://api.openweathermap.org/geo/1.0/direct?q=${searchParam}&units=metric&limit=${1}&appid=${WEATHER_API_KEY}`
+    `http://api.openweathermap.org/geo/1.0/direct?q=${searchParam}&units=metric&limit=${1}&appid=${WEATHER_API_KEY}`
   )
     .then(res => {
       if (!res.ok) console.log(`Could not fetch data. Status: ${res.status}`);
@@ -39,7 +39,7 @@ async function getLocationCoords(searchParam) {
 
 async function getData(lattitude, longitude) {
   const weatherData = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lattitude}&lon=${longitude}&units=metric&appid=${WEATHER_API_KEY}`
+    `http://api.openweathermap.org/data/2.5/weather?lat=${lattitude}&lon=${longitude}&units=metric&appid=${WEATHER_API_KEY}`
   )
     .then(res => {
       return res.json();
@@ -84,7 +84,7 @@ async function displayData() {
         <span class="temp-field">${temp}º</span>
       </div>
       <div class='weather-state'>
-          <img src='https://openweathermap.org/img/w/${icon}.png' class='weather-icon' />
+          <img src='http://openweathermap.org/img/w/${icon}.png' class='weather-icon' />
           <span class='weather-state-text'>${description}</span>
         </div>
       <div class='temp-minmax'>
