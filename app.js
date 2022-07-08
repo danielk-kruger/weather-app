@@ -22,7 +22,7 @@ const loaderAnimation = `
 
 async function getLocationCoords(searchParam) {
   const coords = await fetch(
-    `api.openweathermap.org/geo/1.0/direct?q=${searchParam}&units=metric&limit=${1}&appid=${WEATHER_API_KEY}`,
+    `http://api.openweathermap.org/geo/1.0/direct?q=${searchParam}&units=metric&limit=${1}&appid=${WEATHER_API_KEY}`,
     {
       method: 'GET',
       headers: {
@@ -90,7 +90,7 @@ async function displayData() {
         <span class="temp-field">${temp}º</span>
       </div>
       <div class='weather-state'>
-          <img src='openweathermap.org/img/w/${icon}.png' class='weather-icon' />
+          <img src='http://openweathermap.org/img/w/${icon}.png' class='weather-icon' />
           <span class='weather-state-text'>${description}</span>
         </div>
       <div class='temp-minmax'>
