@@ -22,7 +22,7 @@ const loaderAnimation = `
 
 async function getLocationCoords(searchParam) {
   const coords = await fetch(
-    `https://api.openweathermap.org/geo/1.0/direct?q=${searchParam}&units=metric&limit=${1}&appid=${WEATHER_API_KEY}`,
+    `api.openweathermap.org/geo/1.0/direct?q=${searchParam}&units=metric&limit=${1}&appid=${WEATHER_API_KEY}`,
     {
       method: 'GET',
       headers: {
