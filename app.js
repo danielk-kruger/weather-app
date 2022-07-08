@@ -22,13 +22,7 @@ const loaderAnimation = `
 
 async function getLocationCoords(searchParam) {
   const coords = await fetch(
-    `http://api.openweathermap.org/geo/1.0/direct?q=${searchParam}&units=metric&limit=${1}&appid=${WEATHER_API_KEY}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
+    `https://api.openweathermap.org/geo/1.0/direct?q=${searchParam}&units=metric&limit=${1}&appid=${WEATHER_API_KEY}`
   )
     .then(res => {
       if (!res.ok) console.log(`Could not fetch data. Status: ${res.status}`);
@@ -64,18 +58,14 @@ async function getData(lattitude, longitude) {
 async function displayData() {
   // Get Coordinates for the queried state
   const coords = await getLocationCoords(searchBox.value);
-  const lat = coords[0].lat;
-  const lon = coords[0].lon;
-  const name = coords[0].name;
-  const country = coords[0].country;
+  const { lat, lon, name, country } = coords[0];
 
   // Get the temperature using geocode
   const data = await getData(lat, lon);
 
-  // Sort data
   const { description, icon } = data.weather[0];
   const { temp, temp_min, temp_max, humidity } = data.main;
-  const wind_speed = data.wind.speed;
+  const { speed } = data.wind;
 
   if (loading) {
     weatherContainer.innerHTML = loaderAnimation;
@@ -90,7 +80,7 @@ async function displayData() {
         <span class="temp-field">${temp}º</span>
       </div>
       <div class='weather-state'>
-          <img src='http://openweathermap.org/img/w/${icon}.png' class='weather-icon' />
+          <img src='https://openweathermap.org/img/w/${icon}.png' class='weather-icon' />
           <span class='weather-state-text'>${description}</span>
         </div>
       <div class='temp-minmax'>
@@ -108,7 +98,7 @@ async function displayData() {
       </div>
       <div class="wind">
         <i class="fa-solid fa-wind" style='color: steelblue;'></i>
-        <span class="wind-speed"> Wind Speed: ${wind_speed}km/h </span>
+        <span class="wind-speed"> Wind Speed: ${speed}km/h </span>
       </div>
     </div>
   `;

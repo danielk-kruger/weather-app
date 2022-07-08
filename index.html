@@ -4,10 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="upgrade-insecure-requests"
-    />
 
     <title>Weather</title>
 
@@ -28,7 +24,7 @@
   </head>
   <body>
     <div class="card">
-      <div class="search">
+      <form method="GET" class="search">
         <input
           type="text"
           class="search-bar"
@@ -38,11 +34,11 @@
         <button type="submit" id="searchBtn">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
-      </div>
+      </form>
 
       <div class="weather"></div>
     </div>
 
-    <script src="./app.js"></script>
+    <script src="./app.js" crossorigin="anonymous"></script>
   </body>
 </html>
