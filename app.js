@@ -18,9 +18,11 @@ let loading = true;
 
 const loaderAnimation = `
 <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+<h2 class='empty-search' style='font-size: 18px; font-weight: 400; margin-top: 2.5rem;'>Type a location...</h2>
 `;
 
 async function getLocationCoords(searchParam) {
+  loading = true;
   const coords = await fetch(
     `https://api.openweathermap.org/geo/1.0/direct?q=${searchParam}&units=metric&limit=${1}&appid=${WEATHER_API_KEY}`
   )
@@ -67,9 +69,7 @@ async function displayData() {
   const { temp, temp_min, temp_max, humidity } = data.main;
   const { speed } = data.wind;
 
-  if (loading) {
-    weatherContainer.innerHTML = loaderAnimation;
-  } else {
+  if (!loading) {
     weatherContainer.innerHTML = `
     <div class="city-wrapper">
       <h2 class="city">${name}, ${country}</h2>
@@ -102,6 +102,8 @@ async function displayData() {
       </div>
     </div>
   `;
+  } else {
+    weatherContainer.innerHTML = loaderAnimation;
   }
   searchBox.value = '';
 }
@@ -112,10 +114,14 @@ searchBtn.addEventListener('click', async e => {
   await displayData();
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
   if (loading) {
-    weatherContainer.innerHTML = `
-      <h2 class='empty-search' style='font-size: 18px; font-weight: 400;'>Type a location...</h2>
-    `;
+    weatherContainer.innerHTML = loaderAnimation;
   }
 });
+
+// document.addEventListener('DOMContentLoaded', () => {
+//   if (loading) {
+//     weatherContainer.innerHTML = loaderAnimation;
+//   }
+// });
