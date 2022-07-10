@@ -189,7 +189,7 @@ button:hover {
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(4px) saturate(120%);
     -webkit-backdrop-filter: blur(4px) saturate(120%);
-    z-index: -1;
+    /* z-index: -10; */
   }
 
   .card {
@@ -199,15 +199,16 @@ button:hover {
     margin: 0;
     padding: 0;
     border-radius: 0;
-    background: transparent;
+    background: none;
     backdrop-filter: none;
-    z-index: 10;
+    /* z-index: 100; */
     justify-content: space-evenly;
     align-items: center;
   }
 
   .search {
     margin-top: 0rem;
+    /* z-index: 10; */
     /* flex-grow: 1; */
   }
 
