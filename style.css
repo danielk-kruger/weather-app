@@ -22,6 +22,24 @@ body {
   overflow-y: hidden;
 }
 
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  /* background: #292929; */
+}
+
+header .app-header {
+  font-size: 24px;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+}
+
 .card {
   background-color: rgba(0, 0, 0, 0.6);
   padding: 2em 0.8em;
@@ -116,6 +134,7 @@ button:hover {
   width: 100%;
   color: white;
   margin-bottom: 4rem;
+  letter-spacing: 1.2px;
 }
 
 .weather .city-wrapper {
@@ -123,10 +142,6 @@ button:hover {
 }
 
 /* daniel's additions */
-
-.main {
-  width: 100%;
-}
 
 .main .temp-minmax {
   display: flex;
@@ -155,73 +170,167 @@ button:hover {
   /* flex: 1; */
 }
 
+/* MOBILE RESPONSIVE DESIGN */
+
+@media screen and (max-width: 520px) {
+  .card {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px) saturate(120%);
+    -webkit-backdrop-filter: blur(4px) saturate(120%);
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .search {
+    margin-top: 4.5rem;
+  }
+
+  .search-bar {
+    width: 70%;
+    margin: 0;
+    font-size: 20px;
+    padding: 15px 20px;
+  }
+
+  .search-bar:focus {
+    transform: scale(1.025);
+  }
+
+  button {
+    padding: 15px 20px;
+    font-size: 20px;
+    margin-left: 10px;
+  }
+
+  button:hover {
+    transform: scale(1);
+  }
+
+  .weather .main {
+    /* width: 100%; */
+    height: 75%;
+    align-items: center;
+    justify-content: space-between;
+    /* font-size: 20px; */
+    /* font-weight: 400; */
+  }
+
+  .weather .main div {
+    line-height: 41.2px;
+    /* margin-bottom: 5px; */
+  }
+
+  .weather {
+    justify-content: space-between;
+    margin-bottom: 6rem;
+  }
+
+  .weather .city-wrapper {
+    margin-bottom: 4rem;
+  }
+
+  .weather .city-wrapper .city {
+    font-size: 42px;
+  }
+
+  .weather .main .weather-state {
+    display: flex;
+    align-items: center;
+  }
+
+  .weather .weather-icon {
+    display: inline-block;
+  }
+
+  .weather .weather-state .weather-state-text {
+    font-size: 20px;
+    text-transform: capitalize;
+    display: inline-block;
+    margin-left: 20px;
+    /* flex: 1; */
+  }
+
+  .weather .main .temp-minmax div:first-child {
+    margin-right: 20px;
+    /* justify-content: space-between; */
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .weather {
+    justify-content: space-around;
+    margin-bottom: 2rem;
+  }
+
+  .weather .city-wrapper {
+    margin-bottom: 2.5rem;
+  }
+
+  .weather .main {
+    font-size: 18px;
+    /* height: 60%; */
+  }
+}
+
 /* Loading Animation */
 
-.lds-grid {
+p.loading-text {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.lds-ripple {
   display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
+  transform: scale(2);
+  margin-bottom: 4rem;
 }
-.lds-grid div {
+.lds-ripple div {
   position: absolute;
-  width: 16px;
-  height: 16px;
+  border: 4px solid #fff;
+  opacity: 1;
   border-radius: 50%;
-  background: #fff;
-  animation: lds-grid 1.2s linear infinite;
+  animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
-.lds-grid div:nth-child(1) {
-  top: 8px;
-  left: 8px;
-  animation-delay: 0s;
+.lds-ripple div:nth-child(2) {
+  animation-delay: -0.5s;
 }
-.lds-grid div:nth-child(2) {
-  top: 8px;
-  left: 32px;
-  animation-delay: -0.4s;
-}
-.lds-grid div:nth-child(3) {
-  top: 8px;
-  left: 56px;
-  animation-delay: -0.8s;
-}
-.lds-grid div:nth-child(4) {
-  top: 32px;
-  left: 8px;
-  animation-delay: -0.4s;
-}
-.lds-grid div:nth-child(5) {
-  top: 32px;
-  left: 32px;
-  animation-delay: -0.8s;
-}
-.lds-grid div:nth-child(6) {
-  top: 32px;
-  left: 56px;
-  animation-delay: -1.2s;
-}
-.lds-grid div:nth-child(7) {
-  top: 56px;
-  left: 8px;
-  animation-delay: -0.8s;
-}
-.lds-grid div:nth-child(8) {
-  top: 56px;
-  left: 32px;
-  animation-delay: -1.2s;
-}
-.lds-grid div:nth-child(9) {
-  top: 56px;
-  left: 56px;
-  animation-delay: -1.6s;
-}
-@keyframes lds-grid {
-  0%,
-  100% {
+@keyframes lds-ripple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  4.9% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  5% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
     opacity: 1;
   }
-  50% {
-    opacity: 0.5;
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
   }
 }

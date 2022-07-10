@@ -17,12 +17,13 @@ const weatherContainer = document.querySelector('.weather');
 let loading = true;
 
 const loaderAnimation = `
-<div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-<h2 class='empty-search' style='font-size: 18px; font-weight: 400; margin-top: 2.5rem;'>Type a location...</h2>
+<div class="lds-ripple"><div></div><div></div></div>
+<p class="loading-text">Loading...</p>
+
 `;
 
 async function getLocationCoords(searchParam) {
-  loading = true;
+  // loading = true;
   const coords = await fetch(
     `https://api.openweathermap.org/geo/1.0/direct?q=${searchParam}&units=metric&limit=${1}&appid=${WEATHER_API_KEY}`
   )
@@ -36,7 +37,6 @@ async function getLocationCoords(searchParam) {
     });
 
   return coords;
-  // console.log(coords);
 }
 
 async function getData(lattitude, longitude) {
@@ -50,14 +50,14 @@ async function getData(lattitude, longitude) {
       console.log(`Error at: ${err}`);
     })
     .finally(() => {
-      loading = false;
+      loading = !loading;
     });
 
-  // console.log(weatherData);
   return weatherData;
 }
 
 async function displayData() {
+  // loading = true;
   // Get Coordinates for the queried state
   const coords = await getLocationCoords(searchBox.value);
   const { lat, lon, name, country } = coords[0];
@@ -69,28 +69,22 @@ async function displayData() {
   const { temp, temp_min, temp_max, humidity } = data.main;
   const { speed } = data.wind;
 
-  if (!loading) {
-    weatherContainer.innerHTML = `
+  weatherContainer.innerHTML = `
     <div class="city-wrapper">
       <h2 class="city">${name}, ${country}</h2>
     </div>
     <div class="main">
       <div class='temp'>
         <i class="fa-solid fa-temperature-three-quarters" style='color: orangered;'></i>
-        <span class="temp-field">${temp}º</span>
+        <span class="temp-field">Temperature: ${temp}º</span>
       </div>
       <div class='weather-state'>
           <img src='https://openweathermap.org/img/w/${icon}.png' class='weather-icon' />
           <span class='weather-state-text'>${description}</span>
         </div>
       <div class='temp-minmax'>
-          <div class='temp-min'>Min: ${Math.trunc(temp_min)}º (Fº: ${Math.trunc(
-      (temp_min * 9) / 5 + 32
-    )})</div>
-          <div class='temp-max'>Max: ${Math.trunc(temp_max)}º (Fº: ${Math.trunc(
-      (temp_max * 9) / 5 + 32
-    )}
-    )</div>
+          <div class='temp-min'>Min Temp: ${Math.trunc(temp_min)}º</div>
+          <div class='temp-max'>Max Temp: ${Math.trunc(temp_max)}º</div>
         </div>
       <div class="humidity">
         <i class="fa-solid fa-droplet" style='color: aqua;'></i>
@@ -102,26 +96,23 @@ async function displayData() {
       </div>
     </div>
   `;
-  } else {
-    weatherContainer.innerHTML = loaderAnimation;
-  }
+
   searchBox.value = '';
+  loading = !loading;
 }
 
 searchBtn.addEventListener('click', async e => {
   e.preventDefault();
 
-  await displayData();
-});
-
-window.addEventListener('load', () => {
+  // hide the loader animation and display the weather data
   if (loading) {
     weatherContainer.innerHTML = loaderAnimation;
+    await displayData();
   }
 });
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   if (loading) {
-//     weatherContainer.innerHTML = loaderAnimation;
-//   }
-// });
+document.addEventListener('DOMContentLoaded', () => {
+  if (loading) {
+    weatherContainer.innerHTML = `<h2 class='empty-search' style='font-size: 18px; font-weight: 400; margin-top: 2.5rem;'>Type a location...</h2>`;
+  }
+});
