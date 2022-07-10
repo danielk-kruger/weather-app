@@ -180,17 +180,18 @@ button:hover {
     height: 100%;
     max-width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 2rem 0 0 0;
     border-radius: 0;
     background-color: rgba(0, 0, 0, 0.45);
     backdrop-filter: blur(4px) saturate(120%);
     -webkit-backdrop-filter: blur(4px) saturate(120%);
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
   }
 
   .search {
-    margin-top: 4.5rem;
+    margin-top: 0rem;
+    /* flex-grow: 1; */
   }
 
   .search-bar {
@@ -231,7 +232,7 @@ button:hover {
   }
 
   .weather .city-wrapper {
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
   }
 
   .weather .city-wrapper .city {
