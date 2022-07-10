@@ -228,11 +228,11 @@ button:hover {
 
   .weather {
     justify-content: space-around;
-    margin-bottom: 6rem;
+    margin-bottom: 0rem;
   }
 
   .weather .city-wrapper {
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
   }
 
   .weather .city-wrapper .city {
@@ -269,7 +269,7 @@ button:hover {
   }
 
   .weather .city-wrapper {
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
   }
 
   .weather .main {
