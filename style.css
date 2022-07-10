@@ -264,7 +264,7 @@ button:hover {
 
 @media screen and (max-width: 380px) {
   .weather {
-    justify-content: space-around;
+    justify-content: center;
     margin-bottom: 2rem;
   }
 
